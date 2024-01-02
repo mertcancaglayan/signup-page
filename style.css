@@ -14,3 +14,160 @@ body {
 	background: rgb(158, 155, 153);
 	background: linear-gradient(90deg, rgba(158, 155, 153, 1) 0%, rgba(99, 99, 99, 1) 97%);
 }
+
+.container {
+	background-color: aliceblue;
+	border-radius: 10px;
+	text-align: center;
+	width: 30%;
+	overflow: hidden;
+	z-index: 0;
+}
+
+.title {
+	padding: 30px 0;
+	font-size: 2.5rem;
+}
+
+.progress-bar {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	margin: 30px 0;
+	counter-reset: step;
+	margin: 2rem 0 4rem;
+}
+
+.progress-bar::before,
+.progress {
+	content: "";
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	height: 4px;
+	width: 80%;
+	background-color: #dcdcdc;
+	z-index: -1;
+}
+
+.progress {
+	background-color: var(--primary-color);
+	width: 0%;
+}
+
+.progress-step {
+	width: 2.2rem;
+	height: 2.2rem;
+	background-color: #dcdcdc;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.progress-step::before {
+	counter-increment: step;
+	content: counter(step);
+}
+
+.progress-step::after {
+	content: attr(data-title);
+	position: absolute;
+	top: calc(100% + 0.5rem);
+	font-size: 0.85rem;
+	color: #666;
+}
+
+.check {
+	display: none;
+}
+
+.form-container {
+	display: flex;
+	width: 400%;
+}
+
+.form-area {
+	width: 25%;
+}
+
+.progress-title {
+	padding: 0 0 0 15px;
+	text-align: left;
+	font-weight: 500;
+	font-size: 1.6rem;
+}
+
+.form-field {
+	margin: 30px 0 20px 0;
+	position: relative;
+}
+
+.form-field .label {
+    font-size: 1rem;
+    position: absolute;
+    top: 50%;
+	left: 0;
+	width: 42%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.form-field .form-input {
+	box-shadow: inset #abacaf 0 0 0 2px;
+	border: 0;
+	background: rgba(0, 0, 0, 0);
+	appearance: none;
+	width: 80%;
+	position: relative;
+	border-radius: 3px;
+	padding: 9px 12px;
+	line-height: 1.4;
+    color: black;
+	font-size: 16px;
+	font-weight: 400;
+	height: 40px;
+	transition: all 1s ease;
+}
+
+.form-field .form-input:hover {
+	box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 2px;
+}
+
+.form-field .form-input:focus {
+	background: #fff;
+	outline: 0;
+	box-shadow: 0 0 0 0 #fff inset, #1de9b6 0 0 0 3px;
+}
+
+.form-field .form-input:focus + .label {
+    top: -1.1rem;
+	left: -1.1rem;
+    font-size: 1rem;
+	transition: all 1s ease;
+
+}
+
+
+.btn {
+	display: inline-block;
+	outline: 0;
+	cursor: pointer;
+	text-align: center;
+	border: 0;
+	padding: 7px 16px;
+	min-height: 36px;
+	min-width: 36px;
+	color: #ffffff;
+	background: #008060;
+	border-radius: 4px;
+	font-weight: 500;
+	font-size: 14px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset;
+	margin: 0 0 30px;
+}
+
+.btn:hover {
+	background: #006e52;
+}
