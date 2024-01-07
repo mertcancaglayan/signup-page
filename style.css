@@ -20,8 +20,8 @@ body {
 	border-radius: 10px;
 	text-align: center;
 	width: 30%;
-	overflow: hidden;
 	z-index: 0;
+	overflow: hidden;
 }
 
 .title {
@@ -32,10 +32,9 @@ body {
 .progress-bar {
 	position: relative;
 	display: flex;
-	justify-content: space-around;
-	margin: 30px 0;
+	justify-content: space-between;
 	counter-reset: step;
-	margin: 2rem 0 4rem;
+	margin: 2rem 2rem 4rem;
 }
 
 .progress-bar::before,
@@ -45,14 +44,16 @@ body {
 	top: 50%;
 	transform: translateY(-50%);
 	height: 4px;
-	width: 80%;
+	width: 100%;
 	background-color: #dcdcdc;
 	z-index: -1;
 }
 
 .progress {
-	background-color: var(--primary-color);
+	background-color: #008060;
 	width: 0%;
+	transition: width 0.3s ease;
+	left: 0;
 }
 
 .progress-step {
@@ -79,7 +80,13 @@ body {
 }
 
 .check {
-	display: none;
+    display: none;
+}
+
+.step-active {
+    background-color: #008060;
+    color: white;
+	transition:  0.7s ease-in-out;
 }
 
 .form-container {
@@ -104,17 +111,21 @@ body {
 }
 
 .form-field .label {
-    font-size: 1rem;
-    position: absolute;
-    top: 50%;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	font-size: 1rem;
+	position: absolute;
+	top: 50%;
 	left: 0;
-	width: 42%;
-    transform: translateY(-50%);
-    transition: all 0.3s ease;
-    pointer-events: none;
+	width: 100%;
+	transform: translateY(-50%);
+	transition: all 0.3s ease;
+	pointer-events: none;
 }
 
-.form-field .form-input {
+.form-field .form-input,
+.form-field select {
 	box-shadow: inset #abacaf 0 0 0 2px;
 	border: 0;
 	background: rgba(0, 0, 0, 0);
@@ -124,7 +135,7 @@ body {
 	border-radius: 3px;
 	padding: 9px 12px;
 	line-height: 1.4;
-    color: black;
+	color: black;
 	font-size: 16px;
 	font-weight: 400;
 	height: 40px;
@@ -142,13 +153,22 @@ body {
 }
 
 .form-field .form-input:focus + .label {
-    top: -1.1rem;
+	top: -1.1rem;
 	left: -1.1rem;
-    font-size: 1rem;
+	font-size: 1rem;
 	transition: all 1s ease;
-
 }
 
+.btn-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.btn-next:first-child {
+	margin-left: auto;
+	margin-right: 15%;
+}
 
 .btn {
 	display: inline-block;
@@ -156,16 +176,16 @@ body {
 	cursor: pointer;
 	text-align: center;
 	border: 0;
-	padding: 7px 16px;
+	padding: 7px 0;
+	width: 20%;
 	min-height: 36px;
-	min-width: 36px;
 	color: #ffffff;
 	background: #008060;
 	border-radius: 4px;
 	font-weight: 500;
 	font-size: 14px;
 	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset;
-	margin: 0 0 30px;
+	margin: auto 0 30px;
 }
 
 .btn:hover {
