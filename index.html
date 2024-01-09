@@ -26,68 +26,84 @@
 					<div class="check"><i class="fa-solid fa-check"></i></div>
 				</div>
 			</div>
-			<form action="#">
+			<form action="#" id="form">
 				<div class="form-container slider">
 					<div class="form-area">
 						<h3 class="progress-title">Name</h3>
 						<div class="form-field">
-							<input type="text" class="form-input" />
 							<div class="label">First Name</div>
+							<input type="text" class="form-input"  id="firstName" />
+							<div class="errors"></div>
+
 						</div>
 						<div class="form-field">
-							<input type="text" class="form-input" />
-							<div class="label">Last Name</div>
+							<div class="label" >Last Name</div>
+							<input type="text" class="form-input" id="lastName" />
+							<div class="errors"></div>
+
 						</div>
 						<div class="btn-container">
-							<button class="btn btn-next">Next</button>
+							<button class="btn btn-next" id="next-btn-1">Next</button>
 						</div>
 					</div>
 					<div class="form-area">
 						<h3 class="progress-title">Contact Info</h3>
 						<div class="form-field">
-							<input type="tel" class="form-input" />
 							<div class="label">Phone Number</div>
+							<input type="tel" class="form-input" id="phone" />
+							<div class="errors"></div>
+
 						</div>
 						<div class="form-field">
-							<input type="email" class="form-input" />
 							<div class="label">E-Mail Address</div>
+							<input type="text" class="form-input" id="mail" />
+							<div class="errors"></div>
+
 						</div>
 						<div class="btn-container">
-							<button class="btn btn-previous">Previous</button>
-							<button class="btn btn-next">Next</button>
+							<button class="btn btn-previous" id=previous-btn-1>Previous</button>
+							<button class="btn btn-next"  id="next-btn-2">Next</button>
 						</div>
 					</div>
 					<div class="form-area">
 						<h3 class="progress-title">Date Of Birth</h3>
 						<div class="form-field">
-							<input type="text" class="form-input" />
 							<div class="label">Date</div>
+							<input type="text" class="form-input" id="date"/>
+							<div class="errors"></div>
+
 						</div>
 						<div class="form-field">
-							<select name="" id="">
-								<div class="label">Gender</div>
+							<div class="label">Gender</div>
+							<select name="" id="gender">
 								<option value="">Male</option>
 								<option value="">Female</option>
 								<option value="">Other</option>
 							</select>
+							<div class="errors"></div>
+
 						</div>
 						<div class="btn-container">
-							<button class="btn btn-previous">Previous</button>
-							<button class="btn btn-next">Next</button>
+							<button class="btn btn-previous" id=previous-btn-2>Previous</button>
+							<button class="btn btn-next"  id="next-btn-3">Next</button>
 						</div>
 					</div>
 					<div class="form-area">
 						<h3 class="progress-title">User Info</h3>
 						<div class="form-field">
-							<input type="text" class="form-input" />
 							<div class="label">Username</div>
+							<input type="text" class="form-input" id="username"/>
+							<div class="errors"></div>
+
 						</div>
 						<div class="form-field">
-							<input type="password" class="form-input" />
 							<div class="label">Password</div>
+							<input type="password" class="form-input" id="password"/>
+							<div class="errors"></div>
+
 						</div>
 						<div class="btn-container">
-							<button class="btn btn-previous">Previous</button>
+							<button class="btn btn-previous" id=previous-btn-3>Previous</button>
 							<button class="btn btn-submit">Submit</button>
 						</div>
 					</div>
