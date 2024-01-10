@@ -15,6 +15,7 @@ const userName = document.getElementById("username");
 const password = document.getElementById("password");
 
 let currentStep = 0;
+let user = {};
 
 function setError(element, message) {
 	const inputControl = element.parentElement;
@@ -24,26 +25,31 @@ function setError(element, message) {
 }
 
 function removeErrorMessage(element) {
-    const btnContainer = element.parentElement;
+	const btnContainer = element.parentElement;
 	const inputControl = btnContainer.parentElement;
-    if (inputControl) {
-        const errorDisplay = inputControl.querySelector(".errors");
+	if (inputControl) {
+		const errorDisplay = inputControl.querySelectorAll(".errors");
 
-        if (errorDisplay) {
-            errorDisplay.innerText = "";
-        } else {
-            console.error("Error: '.errors' element not found inside input control.");
-        }
-    } else {
-        console.error("Error: Parent element not found for the provided element.");
-    }
+		if (errorDisplay) {
+			errorDisplay.forEach((element) => {
+				element.innerText = "";
+			});
+		}
+	}
 }
 
-function formValidation(buttonId) {
+const validateEmail = (email) => {
+	return email.match(
+		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+	);
+};
+
+function formValidation(buttonId, buttonElement) {
 	switch (buttonId) {
 		case "next-btn-1":
 			const firstNameValue = document.getElementById("firstName").value.trim();
 			const lastNameValue = document.getElementById("lastName").value.trim();
+			removeErrorMessage(buttonElement);
 
 			if (firstNameValue === "") {
 				setError(document.getElementById("firstName"), "First Name is required");
@@ -51,10 +57,26 @@ function formValidation(buttonId) {
 			} else if (lastNameValue === "") {
 				setError(document.getElementById("lastName"), "Last Name is required");
 				return false;
-			} 
+			} else {
+				user.name = { firstName: firstNameValue, lastName: lastNameValue };
+				console.log(user);
+			}
 			break;
 		case "next-btn-2":
-			console.log("Button btn-2 clicked!");
+			const phoneNumberValue = phoneNumber.value.trim();
+			const mailAddressValue = mailAddress.value.trim();
+			removeErrorMessage(buttonElement);
+
+			if (isNaN(phoneNumberValue) || phoneNumberValue === "") {
+				setError(phoneNumber, "Phone should be only numbers");
+				return false;
+			} else if (!validateEmail(mailAddressValue) || mailAddressValue === "") {
+				setError(mailAddress, "Invalid email address");
+				return false;
+			} else {
+				user.contact = { phone: phoneNumberValue, email: mailAddressValue };
+				console.log(user);
+			}
 			break;
 		case "next-btn-3":
 			console.log("Button btn-3 clicked!");
@@ -70,14 +92,12 @@ function formValidation(buttonId) {
 nextBtns.forEach((button) => {
 	button.addEventListener("click", () => {
 		const buttonId = button.getAttribute("id");
-		const valid = formValidation(buttonId);
+		const valid = formValidation(buttonId, button);
 
 		if (currentStep < 3 && valid) {
 			currentStep++;
 			updateSlidePosition();
 			progressFilling();
-			removeErrorMessage(button);
-
 		}
 	});
 });
