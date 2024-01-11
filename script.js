@@ -9,7 +9,7 @@ const firstName = document.getElementById("firstname");
 const lastName = document.getElementById("lastname");
 const phoneNumber = document.getElementById("phone");
 const mailAddress = document.getElementById("mail");
-const date = document.getElementById("date");
+const date = document.getElementById("dateInput");
 const genderInfo = document.getElementById("gender");
 const userName = document.getElementById("username");
 const password = document.getElementById("password");
@@ -79,7 +79,20 @@ function formValidation(buttonId, buttonElement) {
 			}
 			break;
 		case "next-btn-3":
-			console.log("Button btn-3 clicked!");
+			const dateValue = date.value.trim();
+			const genderInfoValue = genderInfo.value.trim();
+			removeErrorMessage(buttonElement);
+
+			if (dateValue === "Date is required") {
+				setError(dateValue, "");
+				return false;
+			} else if (genderInfoValue === "") {
+				setError(genderInfo, "Gender is required");
+				return false;
+			} else {
+				user.personal = { gender: genderInfoValue, birthdate: dateValue };
+				console.log(user);
+			}
 			break;
 		default:
 			// Handle default case if needed
