@@ -1,6 +1,7 @@
 const slide = document.querySelector(".slider");
 const nextBtns = document.querySelectorAll(".btn-next");
 const previousBtns = document.querySelectorAll(".btn-previous");
+const submitBtn = document.querySelector(".btn-submit");
 const progressSteps = document.querySelectorAll(".progress-step");
 const progress = document.getElementById("progress");
 const form = document.getElementById("form");
@@ -13,6 +14,7 @@ const date = document.getElementById("dateInput");
 const genderInfo = document.getElementById("gender");
 const userName = document.getElementById("username");
 const password = document.getElementById("password");
+
 
 let currentStep = 0;
 let user = {};
@@ -43,6 +45,34 @@ const validateEmail = (email) => {
 		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 	);
 };
+
+function validatePassword(password) {
+	if (password.length < 8) {
+		return "Password must be at least 8 characters long.";
+	}
+
+	const uppercaseRegex = /[A-Z]/;
+	if (!uppercaseRegex.test(password)) {
+		return "Password must contain at least one uppercase letter.";
+	}
+
+	const lowercaseRegex = /[a-z]/;
+	if (!lowercaseRegex.test(password)) {
+		return "Password must contain at least one lowercase letter.";
+	}
+
+	const numericRegex = /[0-9]/;
+	if (!numericRegex.test(password)) {
+		return "Password must contain at least one numeric digit.";
+	}
+
+	const specialCharacterRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+	if (!specialCharacterRegex.test(password)) {
+		return "Password must contain at least one special character.";
+	}
+
+	return true;
+}
 
 function formValidation(buttonId, buttonElement) {
 	switch (buttonId) {
@@ -80,11 +110,11 @@ function formValidation(buttonId, buttonElement) {
 			break;
 		case "next-btn-3":
 			const dateValue = date.value.trim();
-			const genderInfoValue = genderInfo.value.trim();
+			const genderInfoValue = genderInfo.value;
 			removeErrorMessage(buttonElement);
 
-			if (dateValue === "Date is required") {
-				setError(dateValue, "");
+			if (dateValue === "") {
+				setError(date, "Date is required");
 				return false;
 			} else if (genderInfoValue === "") {
 				setError(genderInfo, "Gender is required");
@@ -94,16 +124,36 @@ function formValidation(buttonId, buttonElement) {
 				console.log(user);
 			}
 			break;
+		case "next-btn-4":
+			const userNameValue = userName.value.trim();
+			const passwordValue = password.value;
+			removeErrorMessage(buttonElement);
+
+			const passwordValidationResult = validatePassword(passwordValue);
+			if (passwordValidationResult !== true) {
+				setError(password, passwordValidationResult);
+				return false;
+			} else {
+				user.username = { username: userNameValue, password: passwordValue };
+				console.log(user);
+			}
+			break;
+
 		default:
-			// Handle default case if needed
 			break;
 	}
 
 	return true;
 }
 
+function generateUniqueId(user) {
+	const timestamp = new Date().getTime();
+	const uniqueId = `${user.username.username}_${timestamp}`;
+	return uniqueId;
+}
+
 nextBtns.forEach((button) => {
-	button.addEventListener("click", () => {
+	button.addEventListener("click", (event) => {
 		const buttonId = button.getAttribute("id");
 		const valid = formValidation(buttonId, button);
 
@@ -111,9 +161,22 @@ nextBtns.forEach((button) => {
 			currentStep++;
 			updateSlidePosition();
 			progressFilling();
+
+			event.preventDefault();
+		} else if (currentStep === 3) {
+			progressFilling();
+
+			submitBtn.style.display = "flex";
+			button.style.display = "none";
 		}
 	});
 });
+
+submitBtn.addEventListener("click", (event) => {
+	event.preventDefault();
+	const userId = generateUniqueId(user);
+	user.userId = userId;
+})
 
 previousBtns.forEach((button) => {
 	button.addEventListener("click", () => {

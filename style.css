@@ -22,7 +22,6 @@ body {
 	width: 30%;
 	z-index: 0;
 	/* overflow: hidden; */
-
 }
 
 .title {
@@ -190,4 +189,10 @@ body {
 
 .btn:hover {
 	background: #006e52;
+}
+
+.btn-submit {
+	display: none;
+	justify-content: center;
+	align-items: center;
 }
