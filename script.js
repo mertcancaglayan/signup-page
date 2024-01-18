@@ -1,4 +1,5 @@
 const slide = document.querySelector(".slider");
+const lastNextBtn = document.querySelector("#next-btn-4");
 const nextBtns = document.querySelectorAll(".btn-next");
 const previousBtns = document.querySelectorAll(".btn-previous");
 const submitBtn = document.querySelector(".btn-submit");
@@ -14,7 +15,6 @@ const date = document.getElementById("dateInput");
 const genderInfo = document.getElementById("gender");
 const userName = document.getElementById("username");
 const password = document.getElementById("password");
-
 
 let currentStep = 0;
 let user = {};
@@ -136,6 +136,8 @@ function formValidation(buttonId, buttonElement) {
 			} else {
 				user.username = { username: userNameValue, password: passwordValue };
 				console.log(user);
+				buttonElement.style.display = "none";
+				submitBtn.style.display = "flex";
 			}
 			break;
 
@@ -146,37 +148,73 @@ function formValidation(buttonId, buttonElement) {
 	return true;
 }
 
+let currentStepInputs;
+
+function focusOnFirstInput(param) {
+	currentStepInputs = document.querySelectorAll(`.form-area:nth-child(${currentStep + 1}) .form-input`);
+
+	console.log(currentStepInputs);
+	if (currentStepInputs.length > 0) {
+		currentStepInputs[0].focus();
+	}
+}
+
 function generateUniqueId(user) {
 	const timestamp = new Date().getTime();
 	const uniqueId = `${user.username.username}_${timestamp}`;
 	return uniqueId;
 }
 
-nextBtns.forEach((button) => {
-	button.addEventListener("click", (event) => {
-		const buttonId = button.getAttribute("id");
-		const valid = formValidation(buttonId, button);
+function submitted() {
+	const userId = generateUniqueId(user);
+	user.userId = userId;
+	localStorage.setItem("users", JSON.stringify(user));
+}
+
+window.addEventListener("keydown", (event) => {
+	if (event.key === "Enter") {
+		const buttonId = `next-btn-${currentStep + 1}`;
+		const valid = formValidation(buttonId, document.getElementById(buttonId));
+		event.preventDefault();
 
 		if (currentStep < 3 && valid) {
 			currentStep++;
 			updateSlidePosition();
 			progressFilling();
-
-			event.preventDefault();
+			setTimeout(() => {
+				focusOnFirstInput();
+			}, 500);
 		} else if (currentStep === 3) {
 			progressFilling();
+		}
 
-			submitBtn.style.display = "flex";
-			button.style.display = "none";
+		event.preventDefault();
+	}
+});
+
+nextBtns.forEach((button) => {
+	button.addEventListener("click", (event) => {
+		const buttonId = button.getAttribute("id");
+		const valid = formValidation(buttonId, button);
+		event.preventDefault();
+
+		if (currentStep < 3 && valid) {
+			currentStep++;
+			updateSlidePosition();
+			progressFilling();
+			setTimeout(() => {
+				focusOnFirstInput();
+			}, 500);
+		} else if (currentStep === 3) {
+			progressFilling();
 		}
 	});
 });
 
 submitBtn.addEventListener("click", (event) => {
 	event.preventDefault();
-	const userId = generateUniqueId(user);
-	user.userId = userId;
-})
+	submitted();
+});
 
 previousBtns.forEach((button) => {
 	button.addEventListener("click", () => {
@@ -184,7 +222,12 @@ previousBtns.forEach((button) => {
 			currentStep--;
 			updateSlidePosition();
 			progressFilling();
+			setTimeout(() => {
+				focusOnFirstInput();
+			}, 500);
 		}
+
+		lastNextBtn.style.display = "flex";
 	});
 });
 
