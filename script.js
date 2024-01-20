@@ -3,6 +3,9 @@ const lastNextBtn = document.querySelector("#next-btn-4");
 const nextBtns = document.querySelectorAll(".btn-next");
 const previousBtns = document.querySelectorAll(".btn-previous");
 const submitBtn = document.querySelector(".btn-submit");
+const notification = document.querySelector(".notification")
+const toast = document.querySelector(".toast")
+
 const progressSteps = document.querySelectorAll(".progress-step");
 const progress = document.getElementById("progress");
 const form = document.getElementById("form");
@@ -169,6 +172,13 @@ function submitted() {
 	const userId = generateUniqueId(user);
 	user.userId = userId;
 	localStorage.setItem("users", JSON.stringify(user));
+	notification.style.display = "flex"
+	setTimeout(() => {
+		notification.style.display = "none"
+		location.reload()
+	}, 5500);
+
+
 }
 
 window.addEventListener("keydown", (event) => {
