@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
+	font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -11,17 +11,16 @@ body {
 	justify-content: center;
 	height: 100vh;
 	width: 100vw;
-	background: rgb(158, 155, 153);
-	background: linear-gradient(90deg, rgba(158, 155, 153, 1) 0%, rgba(99, 99, 99, 1) 97%);
+	background-color: #5c715e;
 }
 
 .container {
-	background-color: aliceblue;
+	background-color: #f2f9f1;
 	border-radius: 10px;
 	text-align: center;
 	width: 30%;
 	z-index: 0;
-	/* overflow: hidden; */
+	overflow: hidden;
 }
 
 .title {
@@ -155,7 +154,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	margin: 0.23rem 0 0 10% ;
+	margin: 0.23rem 0 0 10%;
 }
 
 .btn-container {
